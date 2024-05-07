@@ -1,0 +1,39 @@
+openapi: '3.0.2'
+info:
+  title: to-pdf-api
+  version: '0.1'
+paths:
+  /html2pdf/export:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object 
+              properties:
+                html: 
+                  type: string              
+              required:
+                - "html"
+      responses:
+        '200':
+          description: HTMLをPDFに変換したデータを返す
+          content:
+            application/pdf:
+              schema:
+                type: string 
+                format: binary
+              # TODO: PDFを返すレスポンスのモックが欲しい
+        '400':
+          description: htmlプロパティの値が不正な時に返す
+          content:
+            application/json:
+              schema:
+                type: object 
+                properties:
+                  message:
+                    type: string 
+              example:
+              # request validationが失敗した場合にこのレスポンスが自動で呼び出される
+              # https://docs.stoplight.io/docs/prism/21adcc8dc5fe5-request-validation#parameter-validation
+                $ref: "./examples/html2pdf/400.json"

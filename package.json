@@ -8,7 +8,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "mock-server":"prism mock -p=9876 specs/openapi.yml"
   },
   "devDependencies": {
     "@types/jest": "^29.5.11",
