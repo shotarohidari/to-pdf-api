@@ -26,9 +26,11 @@
   "dependencies": {
     "@hono/node-server": "^1.11.1",
     "@hono/zod-openapi": "^0.11.0",
+    "@sparticuz/chromium": "^123.0.1",
     "aws-cdk-lib": "2.122.0",
     "constructs": "^10.0.0",
     "hono": "^4.3.2",
+    "playwright": "^1.44.0",
     "source-map-support": "^0.5.21"
   }
 }
