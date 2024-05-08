@@ -2,16 +2,24 @@ import { OpenAPIHono } from "@hono/zod-openapi"
 import openAPIJSON from "@specs/openapi.json"
 import { swaggerUI } from "@hono/swagger-ui"
 import { HTML2PDFRoute } from "./route"
+import { Env } from "./type"
+import { browserMiddleware } from "./middleware/browser"
 
-const app = new OpenAPIHono()
+const app = new OpenAPIHono<Env>()
+
+app.use(browserMiddleware)
 
 app
   .openapi(
     HTML2PDFRoute,
     // @ts-ignore バイナリを型安全で返す方法が分からないので一旦ignore
-    (c) => {
+    async (c) => {
       const { html } = c.req.valid("json")
-      return c.body("hoge", 200, {
+      const { browser } = c.var
+      const page = await browser.newPage()
+      await page.setContent(html)
+      const pdfBuffer = await page.pdf({ printBackground: true })
+      return c.body(pdfBuffer, 200, {
         "content-type": "application/pdf",
       })
     },
