@@ -10,7 +10,7 @@
     "test": "jest",
     "cdk": "cdk",
     "mock-server": "prism mock -p=9876 specs/openapi.json",
-    "dev": "npx tsx lib/server/local.ts"
+    "dev": "npx tsx watch lib/server/local.ts"
   },
   "devDependencies": {
     "@hono/swagger-ui": "^0.2.2",
