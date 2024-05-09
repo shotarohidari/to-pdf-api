@@ -13,9 +13,13 @@ export const requestBodySchemaList = {
         })
         .optional(),
     })
-  "/html2pdf/export": z.object({
-    html: z.string().min(1),
-  }),
+    .openapi({
+      example: {
+        html: '<h1 style="color:red;">Hello,World</h1>',
+        option: {
+          scale: 0.5,
+        },
+      },
     }),
 } satisfies Record<paths, unknown>
 
