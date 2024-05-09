@@ -1,12 +1,22 @@
 import { z } from "@hono/zod-openapi"
 import openAPIJSON from "@specs/openapi.json"
 
-export type paths = keyof (typeof openAPIJSON)["paths"];
+export type paths = keyof (typeof openAPIJSON)["paths"]
 
 export const requestBodySchemaList = {
+  "/html2pdf/export": z
+    .object({
+      html: z.string().min(1),
+      option: z
+        .object({
+          scale: z.number().default(1),
+        })
+        .optional(),
+    })
   "/html2pdf/export": z.object({
     html: z.string().min(1),
   }),
+    }),
 } satisfies Record<paths, unknown>
 
 export const errorResponseSchemaList = {
