@@ -14,11 +14,15 @@ app
     HTML2PDFRoute,
     // @ts-ignore バイナリを型安全で返す方法が分からないので一旦ignore
     async (c) => {
-      const { html } = c.req.valid("json")
+      const { html, option } = c.req.valid("json")
       const { browser } = c.var
       const page = await browser.newPage()
       await page.setContent(html)
-      const pdfBuffer = await page.pdf({ printBackground: true })
+      // 21cm * 29.7cm
+      const pdfBuffer = await page.pdf({
+        printBackground: true,
+        scale: option?.scale,
+      })
       return c.body(pdfBuffer, 200, {
         "content-type": "application/pdf",
       })
